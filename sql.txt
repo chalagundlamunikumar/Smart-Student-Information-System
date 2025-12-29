@@ -1,0 +1,27 @@
+CREATE DATABASE CollegeDB;
+USE CollegeDB;
+
+CREATE TABLE Students (
+    Student_ID VARCHAR(10) PRIMARY KEY,
+    First_Name VARCHAR(50) NOT NULL,
+    Last_Name VARCHAR(50) NOT NULL,
+    Branch VARCHAR(50) NOT NULL,
+    Gender VARCHAR(20)
+);
+
+CREATE TABLE Subjects (
+    Subject_ID VARCHAR(10) PRIMARY KEY,
+    Subject_Name VARCHAR(100) NOT NULL,
+    Branch VARCHAR(50) NOT NULL,
+    Semester INT CHECK (Semester >= 1 AND Semester <= 8)
+);
+
+CREATE TABLE Semester_Marks (
+    Mark_ID INT IDENTITY(1,1) PRIMARY KEY,
+    Student_ID VARCHAR(10),
+    Subject_ID VARCHAR(10),
+    Semester INT CHECK (Semester >= 1 AND Semester <= 8),
+    Marks DECIMAL(5,2) CHECK (Marks >= 0 AND Marks <= 100),
+    FOREIGN KEY (Student_ID) REFERENCES Students(Student_ID),
+    FOREIGN KEY (Subject_ID) REFERENCES Subjects(Subject_ID)
+);
